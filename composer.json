@@ -1,12 +1,13 @@
 {
-    "name": "server/php-base-project",
+    "name": "rubeeengm/php-base-project",
     "authors": [
         {
             "name": "rubeeengm",
             "email": "rubeeengm@outlook.com"
         }
-    ]
-	, "autoload": {
+    ],
+    "description": "My first MVC framework from scratch",
+    "autoload": {
 		"psr-4": {
 			"app\\": "./"
 		}
