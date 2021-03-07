@@ -19,7 +19,7 @@
 
     <div class="form-group">
         <label>Email</label>
-        <input type="email" name="email" class="form-control">
+        <input type="text" name="email" class="form-control">
     </div>
 
     <div class="form-group">
