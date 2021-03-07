@@ -5,14 +5,14 @@
         <div class="col">
             <div class="form-group">
                 <label>Firstname</label>
-                <input type="text" name="firstname" class="form-control">
+                <input type="text" name="firstName" class="form-control">
             </div>
         </div>
 
         <div class="col">
             <div class="form-group">
                 <label>Lastname</label>
-                <input type="text" name="lastname" class="form-control">
+                <input type="text" name="lastName" class="form-control">
             </div>
         </div>
     </div>
