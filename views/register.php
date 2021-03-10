@@ -1,36 +1,23 @@
+<!-- $model is injected from the controller -->
+
 <h1>Create an account</h1>
 
-<form action="" method="post">
+<?php use app\core\form\Form;
+    $form = Form::begin('', 'post')
+?>
     <div class="row">
         <div class="col">
-            <div class="form-group">
-                <label>Firstname</label>
-                <input type="text" name="firstName" class="form-control">
-            </div>
+            <?php echo $form->field($model, 'firstName'); ?>
         </div>
 
         <div class="col">
-            <div class="form-group">
-                <label>Lastname</label>
-                <input type="text" name="lastName" class="form-control">
-            </div>
+            <?php echo $form->field($model, 'lastName'); ?>
         </div>
     </div>
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="text" name="email" class="form-control">
-    </div>
+    <?php echo $form->field($model, 'email'); ?>
+    <?php echo $form->field($model, 'password')->passwordField(); ?>
+    <?php echo $form->field($model, 'confirmPassword')->passwordField(); ?>
 
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" class="form-control">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <button class="btn btn-primary" type="submit">Submit</button>
+<?php Form::end() ?>

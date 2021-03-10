@@ -72,6 +72,10 @@ abstract class Model {
         $this->errors[$attribute][] = $message;
     }
 
+    /**
+     * Get associative array of error messages
+     * @return string[]
+     */
     public function errorMessages() : array {
         return [
             self::RULE_REQUIRED => 'This field is required'
@@ -80,5 +84,23 @@ abstract class Model {
             , self::RULE_MAX => 'Max length of this field must be {max}'
             , self::RULE_MATCH => 'This field must be the same as {match}'
         ];
+    }
+
+    /**
+     * Evaluate if the attribute of model has any error
+     * @param String $attribute
+     * @return array
+     */
+    public function hasError(String $attribute) : array {
+        return $this->errors[$attribute] ?? [];
+    }
+
+    /**
+     * Get the first error message of specific attribute of model
+     * @param String $attribute
+     * @return String
+     */
+    public function getFirstError(String $attribute) : String {
+        return $this->errors[$attribute][0] ?? '';
     }
 }
