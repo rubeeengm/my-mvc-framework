@@ -8,11 +8,11 @@ class m0001_initial {
         $database = Application::$app->database;
         $SQL = "
             CREATE TABLE USERS(
-                ID INT AUTO_INCREMENT PRIMARY KEY 
-                , EMAIL VARCHAR(255) NOT NULL
-                , FIRSTNAME VARCHAR(255) NOT NULL
-                , LASTNAME VARCHAR(255) NOT NULL   
-                , STATUS TINYINT NOT NULL
+                id INT AUTO_INCREMENT PRIMARY KEY 
+                , email VARCHAR(255) NOT NULL
+                , firstName VARCHAR(255) NOT NULL
+                , lastName VARCHAR(255) NOT NULL   
+                , status TINYINT NOT NULL
                 , CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             ) ENGINE=INNODB;
         ";
