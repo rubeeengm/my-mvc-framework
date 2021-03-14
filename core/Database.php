@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace app\core;
 
 use PDO;
+use PDOStatement;
 
 class Database {
     public PDO $pdo;
@@ -102,6 +103,19 @@ class Database {
         $statement->execute();
     }
 
+    /**
+     * Return a PdoStatement object prepare with the statement
+     * @param String $statement
+     * @return PDOStatement
+     */
+    public function prepare(String $statement) : PDOStatement {
+        return $this->pdo->prepare($statement);
+    }
+
+    /**
+     * Print a log message
+     * @param $message
+     */
     protected function log($message) {
         echo '[' . date('Y-m-d H:i:s') . '] - ' . $message . PHP_EOL;
     }
