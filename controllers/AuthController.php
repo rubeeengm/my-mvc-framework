@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
 use app\models\UserModel;
@@ -22,7 +23,7 @@ class AuthController extends Controller {
             $userModel->loadData($request->getBody());
 
             if ($userModel->validate() && $userModel->save()) {
-                return 'Success';
+                Application::$app->response->redirect('/');
             }
 
             return $this->render('register', [

@@ -9,6 +9,7 @@ abstract class Model {
     public const RULE_MIN  = 'min';
     public const RULE_MAX  = 'max';
     public const RULE_MATCH  = 'match';
+    public const RULE_UNIQUE  = 'unique';
 
     public array $errors = [];
 
@@ -22,6 +23,10 @@ abstract class Model {
 
     abstract public function rules() : array;
 
+    /**
+     * Validate all the rules configured for the attribute
+     * @return bool
+     */
     public function validate() : bool {
         foreach ($this->rules() as $attribute => $rules) {
             $value = $this->{$attribute};
@@ -56,12 +61,38 @@ abstract class Model {
                 ) {
                     $this->addError($attribute, self::RULE_MATCH, $rule);
                 }
+
+                if ($ruleName === self::RULE_UNIQUE) {
+                    $className = $rule['class'];
+                    $uniqueAttribute = $rule['attribute'] ?? $attribute;
+                    $tableName = $className::tableName();
+
+                    $statement = Application::$app->database->prepare(
+                        "SELECT * FROM $tableName WHERE $uniqueAttribute = :attribute"
+                    );
+                    $statement->bindValue(":attribute", $value);
+                    $statement->execute();
+
+                    $record = $statement->fetchObject();
+
+                    if ($record) {
+                        $this->addError(
+                            $attribute, self::RULE_UNIQUE, ['field' => $attribute]
+                        );
+                    }
+                }
             }
         }
 
         return empty($this->errors);
     }
 
+    /**
+     * Ad new error message to specific attribute
+     * @param String $attribute
+     * @param String $rule
+     * @param array $params
+     */
     public function addError(String $attribute, String $rule, $params = []) : void {
         $message = $this->errorMessages()[$rule] ?? '';
 
@@ -83,6 +114,7 @@ abstract class Model {
             , self::RULE_MIN => 'Min length of this field must be {min}'
             , self::RULE_MAX => 'Max length of this field must be {max}'
             , self::RULE_MATCH => 'This field must be the same as {match}'
+            , self::RULE_UNIQUE => 'Record with this {field} already exists'
         ];
     }
 
